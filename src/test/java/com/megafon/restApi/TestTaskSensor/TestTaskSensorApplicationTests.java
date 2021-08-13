@@ -18,8 +18,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES;
-
 @SpringBootTest
 class TestTaskSensorApplicationTests {
 
@@ -32,6 +30,7 @@ class TestTaskSensorApplicationTests {
     private SensorService sensorService;
 
     @BeforeEach
+    @DisplayName("Добавление в бд данных, сгенерированных в файле data.json")
     void setUp() {
         generateSendorDataPy();
         List<SensorData> models = readTestData("data.json");
@@ -39,15 +38,11 @@ class TestTaskSensorApplicationTests {
     }
 
     @Test
+    @DisplayName("Проверка сброки проекта")
     void contextLoads() {
         Assertions.assertTrue(true);
     }
 
-    @Test
-    @DisplayName("Проверка количества записей")
-    public void testCountPerson() {
-        Assertions.assertEquals(30, 30);
-    }
 
     private List<SensorData> readTestData(String fileName) {
         InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);

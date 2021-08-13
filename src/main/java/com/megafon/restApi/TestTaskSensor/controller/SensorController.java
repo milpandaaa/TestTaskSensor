@@ -5,7 +5,6 @@ import com.megafon.restApi.TestTaskSensor.service.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +26,6 @@ public class SensorController {
 
     @GetMapping("/api/history")
     public List<SensorData> getSensor(@PathVariable("sensorId") Integer sensorId,
-                                      @PathVariable("objectId") Integer objectId,
                                       @PathVariable("from") Integer from,
                                       @PathVariable("to") Integer to
                                       ) {
@@ -44,9 +42,5 @@ public class SensorController {
         return sensorService.apiAvg(objectId);
     }
 
-    @GetMapping("/api/")
-    public Integer apiAvg() {
-        return 5;
-    }
 
 }
