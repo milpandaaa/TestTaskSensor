@@ -8,10 +8,28 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.util.List;
+import java.io.InputStream;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES;
 
 @SpringBootTest
 class TestTaskSensorApplicationTests {
+
+    private static final TypeReference<List<SensorData>> VALUE_TYPE_REF = new TypeReference<List<SensorData>>() {
+    };
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper().configure(FAIL_ON_IGNORED_PROPERTIES, false);
+
+    @Autowired
+    private SensorService sensorService;
 
     @BeforeEach
     void setUp() {
@@ -25,10 +43,27 @@ class TestTaskSensorApplicationTests {
         Assertions.assertTrue(true);
     }
 
-	@Test
-	@DisplayName("Проверка количества записей")
-	public void testCountPerson() {
-		Assertions.assertEquals(30, 30);
-	}
+    @Test
+    @DisplayName("Проверка количества записей")
+    public void testCountPerson() {
+        Assertions.assertEquals(30, 30);
+    }
 
+    private List<SensorData> readTestData(String fileName) {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(fileName);
+        try {
+            return OBJECT_MAPPER.readValue(is, VALUE_TYPE_REF);
+        } catch (IOException e) {
+            throw new RuntimeException("Error load test data");
+        }
+    }
+
+    private void generateSendorDataPy(){
+        try {
+        Runtime.getRuntime().exec(new String[] {"cmd.exe",
+                "python .\\src\\test\\resources\\generate_sensor_data.py", "D:\\heroku\\IMG_20210719_172923.jpg"});
+        } catch (IOException e) {
+            throw new RuntimeException("Error generate test data");
+        }
+    }
 }
