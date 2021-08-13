@@ -13,7 +13,11 @@ import java.util.List;
 public class SensorController {
 
     @Autowired
-    private SensorService sensorService;
+    private final SensorService sensorService;
+
+    public SensorController(SensorService sensorService) {
+        this.sensorService = sensorService;
+    }
 
     @PostMapping("/api/save")
     public void saveSensor(@RequestBody SensorData sensor) {
@@ -21,23 +25,28 @@ public class SensorController {
 
     }
 
-//    @GetMapping("/api/history")
-//    public List<SensorData> getSensor(@PathVariable("sensorId") Integer sensorId,
-//                                      @PathVariable("objectId") Integer objectId,
-//                                      @PathVariable("from") Time from,
-//                                      @PathVariable("to") Time to
-//                                      ) {
-//        return sensorService.apiHistoryapiHistory(sensorId, objectId, from, to);
-//    }
-//
-//    @GetMapping("/api/latest")
-//    public Integer[] apiLatest(@PathVariable("objectId") Integer objectId) {
-//        return sensorService.apiLatest(objectId);
-//    }
-//
-//    @GetMapping("/api/avg:")
-//    public HashMap<Integer, Double> apiAvg(@PathVariable("objectId") Integer objectId) {
-//        return sensorService.apiAvg(objectId);
-//    }
+    @GetMapping("/api/history")
+    public List<SensorData> getSensor(@PathVariable("sensorId") Integer sensorId,
+                                      @PathVariable("objectId") Integer objectId,
+                                      @PathVariable("from") Integer from,
+                                      @PathVariable("to") Integer to
+                                      ) {
+        return sensorService.apiHistoryapiHistory(sensorId, from, to);
+    }
+
+    @GetMapping("/api/latest")
+    public List<SensorData> apiLatest(@PathVariable("objectId") Integer objectId) {
+        return sensorService.apiLatest(objectId);
+    }
+
+    @GetMapping("/api/avg")
+    public HashMap<Integer, Double> apiAvg(@PathVariable("objectId") Integer objectId) {
+        return sensorService.apiAvg(objectId);
+    }
+
+    @GetMapping("/api/")
+    public Integer apiAvg() {
+        return 5;
+    }
 
 }

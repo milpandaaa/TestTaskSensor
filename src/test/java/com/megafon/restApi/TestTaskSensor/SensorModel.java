@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.sql.Time;
 
-@Generated("jsonschema2pojo")
 public class SensorModel {
     @SerializedName("objectId")
     @Expose
@@ -16,12 +15,12 @@ public class SensorModel {
     private Integer sensorId;
     @SerializedName("time")
     @Expose
-    private Time time;
+    private Integer time;
     @SerializedName("value")
     @Expose
     private Double value;
 
-    public SensorModel(Integer objectId, Integer sensorId, Time time, Double value) {
+    public SensorModel(Integer objectId, Integer sensorId, Integer time, Double value) {
         this.objectId = objectId;
         this.sensorId = sensorId;
         this.time = time;
@@ -44,11 +43,11 @@ public class SensorModel {
         this.sensorId = sensorId;
     }
 
-    public Time getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(Integer time) {
         this.time = time;
     }
 

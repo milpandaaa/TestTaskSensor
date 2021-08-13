@@ -1,5 +1,9 @@
 package com.megafon.restApi.TestTaskSensor;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.megafon.restApi.TestTaskSensor.model.SensorData;
+import com.megafon.restApi.TestTaskSensor.service.SensorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,18 +13,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class TestTaskSensorApplicationTests {
 
-	@BeforeEach
-	void setUp() {
-		//падает тест
-		GenerateSensorData.run();
+    @BeforeEach
+    void setUp() {
+        generateSendorDataPy();
+        List<SensorData> models = readTestData("data.json");
+        models.forEach(sensorService::add);
+    }
 
-
-		ServiceParseSensorData.start(".\\src\\test\\java\\com\\megafon\\restApi\\TestTaskSensor\\data.json");
-	}
-
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+        Assertions.assertTrue(true);
+    }
 
 	@Test
 	@DisplayName("Проверка количества записей")

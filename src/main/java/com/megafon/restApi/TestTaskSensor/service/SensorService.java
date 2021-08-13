@@ -21,16 +21,16 @@ public class SensorService {
         sensorRepository.save(sensorData);
     }
 
-//    public List<SensorData> apiHistoryapiHistory(Integer sensorId, Integer objectId, Time from, Time to) {
-//        return sensorRepository.apiHistory(sensorId, objectId, from, to);
-//    }
-//
-//    public Integer[] apiLatest(Integer objectId) {
-//        return sensorRepository.apiLatest(objectId);
-//    }
-//
-//
-//    public HashMap<Integer, Double> apiAvg(Integer objectId) {
-//        return sensorRepository.apiAvg(objectId);
-//    }
+    public List<SensorData> apiHistoryapiHistory(Integer sensorId, Integer from, Integer to) {
+        return sensorRepository.apiHistory(sensorId, from, to);
+    }
+
+    public List<SensorData> apiLatest(Integer objectId) {
+        return sensorRepository.apiLatest(objectId);
+    }
+
+
+    public HashMap<Integer, Double> apiAvg(Integer objectId) {
+        return sensorRepository.apiAvg(objectId);
+    }
 }

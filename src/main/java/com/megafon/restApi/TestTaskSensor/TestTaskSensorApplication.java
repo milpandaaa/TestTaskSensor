@@ -8,6 +8,7 @@ public class TestTaskSensorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TestTaskSensorApplication.class, args);
+
 	}
 
 }
